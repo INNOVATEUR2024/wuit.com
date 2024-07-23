@@ -1,0 +1,249 @@
+<html><head><base href="https://ecommerce-app.example.com/"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ÉcoShop - Accueil</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #E3F2FD;
+    color: #333;
+  }
+  .app-container {
+    max-width: 480px;
+    margin: 0 auto;
+    background-color: #fff;
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background-color: #1E88E5;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 16px;
+  }
+  nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #1976D2;
+    padding: 6px 0;
+    position: sticky;
+    top: 32px;
+    z-index: 999;
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  nav a i {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  main {
+    flex-grow: 1;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .product-card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  .product-image {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+  }
+  .product-info {
+    padding: 8px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-name {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 0 4px;
+  }
+  .product-price {
+    font-size: 11px;
+    color: #1E88E5;
+    margin: 0 0 4px;
+  }
+  .add-to-cart {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  .add-to-cart:hover {
+    background-color: #45a049;
+  }
+  footer {
+    background-color: #1565C0;
+    color: white;
+    text-align: center;
+    padding: 6px;
+    font-size: 10px;
+  }
+  #cartBadge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+  .cart-icon {
+    position: relative;
+  }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+  <header>
+    <h1>ÉcoShop</h1>
+  </header>
+  
+  <nav>
+    <a href="/"><i class="fas fa-home"></i>Accueil</a>
+    <a href="/categories"><i class="fas fa-list"></i>Catégories</a>
+    <a href="/panier" class="cart-icon">
+      <i class="fas fa-shopping-cart"></i>Panier
+      <span id="cartBadge">0</span>
+    </a>
+    <a href="/compte"><i class="fas fa-user"></i>Compte</a>
+  </nav>
+  
+  <main id="productGrid">
+    <!-- Les produits seront injectés ici par JavaScript -->
+  </main>
+  
+  <footer>
+    <p>&copy; 2023 ÉcoShop. Tous droits réservés.</p>
+  </footer>
+</div>
+
+<script>
+const products = [
+  { id: 1, name: "Brosse à dents bambou", price: 1500, image: "brosse-bambou.jpg" },
+  { id: 2, name: "Shampoing solide", price: 3000, image: "shampoing-solide.jpg" },
+  { id: 3, name: "Gourde inox", price: 5000, image: "gourde-inox.jpg" },
+  { id: 4, name: "Sac réutilisable", price: 2000, image: "sac-reutilisable.jpg" },
+  { id: 5, name: "Savon bio", price: 1200, image: "savon-bio.jpg" },
+  { id: 6, name: "Paille en bambou", price: 800, image: "paille-bambou.jpg" },
+  { id: 7, name: "Boîte repas hermétique", price: 4500, image: "boite-repas.jpg" },
+  { id: 8, name: "Couverts en bambou", price: 2500, image: "couverts-bambou.jpg" },
+  { id: 9, name: "Bouteille en verre", price: 3500, image: "bouteille-verre.jpg" },
+  { id: 10, name: "Éponge naturelle", price: 1000, image: "eponge-naturelle.jpg" },
+  { id: 11, name: "Dentifrice solide", price: 2200, image: "dentifrice-solide.jpg" },
+  { id: 12, name: "Baume à lèvres bio", price: 1800, image: "baume-levres.jpg" },
+  { id: 13, name: "Déodorant naturel", price: 2800, image: "deodorant-naturel.jpg" },
+  { id: 14, name: "Lingettes démaquillantes lavables", price: 3200, image: "lingettes-lavables.jpg" },
+  { id: 15, name: "Savon de Marseille", price: 1600, image: "savon-marseille.jpg" },
+  { id: 16, name: "Filet à provisions", price: 1900, image: "filet-provisions.jpg" },
+  { id: 17, name: "Rasoir de sûreté", price: 4000, image: "rasoir-surete.jpg" },
+  { id: 18, name: "Bee wrap", price: 2600, image: "bee-wrap.jpg" },
+  { id: 19, name: "Brosse vaisselle biodégradable", price: 1400, image: "brosse-vaisselle.jpg" },
+  { id: 20, name: "Essuie-tout lavable", price: 3800, image: "essuie-tout-lavable.jpg" },
+  { id: 21, name: "Lessive en vrac", price: 2900, image: "lessive-vrac.jpg" },
+  { id: 22, name: "Papier toilette recyclé", price: 1700, image: "papier-toilette-recycle.jpg" },
+  { id: 23, name: "Tasse en bambou", price: 2300, image: "tasse-bambou.jpg" },
+  { id: 24, name: "Éponge Konjac", price: 1300, image: "eponge-konjac.jpg" },
+  { id: 25, name: "Cotons-tiges réutilisables", price: 2100, image: "cotons-tiges-reutilisables.jpg" },
+  { id: 26, name: "Crème solaire bio", price: 4200, image: "creme-solaire-bio.jpg" },
+  { id: 27, name: "Gant de toilette en bambou", price: 1100, image: "gant-toilette-bambou.jpg" },
+  { id: 28, name: "Sac à vrac", price: 900, image: "sac-vrac.jpg" },
+  { id: 29, name: "Pinceau maquillage bambou", price: 3100, image: "pinceau-maquillage.jpg" },
+  { id: 30, name: "Lotion hydratante naturelle", price: 3600, image: "lotion-hydratante.jpg" }
+];
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  const productGrid = document.getElementById('productGrid');
+  const cartBadge = document.getElementById('cartBadge');
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  function updateCartBadge() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartBadge.textContent = totalItems;
+    cartBadge.style.display = totalItems > 0 ? 'block' : 'none';
+  }
+
+  function addToCart(product) {
+    const existingItem = cart.find(item => item.id === product.id);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+  }
+
+  products.forEach(product => {
+    const productElement = document.createElement('div');
+    productElement.className = 'product-card';
+    productElement.innerHTML = `
+      <img src="https://example.com/${product.image}" alt="${product.name}" class="product-image" width="100" height="100">
+      <div class="product-info">
+        <h3 class="product-name">${product.name}</h3>
+        <p class="product-price">${product.price} FCFA</p>
+        <button class="add-to-cart" data-id="${product.id}">Ajouter au panier</button>
+      </div>
+    `;
+    productGrid.appendChild(productElement);
+  });
+
+  productGrid.addEventListener('click', (e) => {
+    if (e.target.classList.contains('add-to-cart')) {
+      const productId = parseInt(e.target.dataset.id);
+      const product = products.find(p => p.id === productId);
+      addToCart(product);
+    }
+  });
+
+  updateCartBadge();
+
+  // Animation d'apparition des produits
+  const productCards = document.querySelectorAll('.product-card');
+  productCards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 50 * index);
+  });
+});
+</script>
+</body></html>
